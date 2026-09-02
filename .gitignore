@@ -1,0 +1,603 @@
+####################################################################################################################################
+# A .gitignore file specifies intentionally untracked files that Git shouldn't track by default. Each line in a .gitignore file    #
+# specifies a pseudo-regex pattern. Any file with path and name matching the pattern is not tracked by default, although you can   #
+# still manually add and track ignored files.                                                                                      #
+#                                                                                                                                  #
+# Full documentation about .gitignore: https://git-scm.com/docs/gitignore                                                          #
+#                                                                                                                                  #
+# There is a Github repository with a collection of gitignore templates that provide a starting point to assemble a full project   #
+# .gitignore: https://github.com/github/gitignore                                                                                  #
+#                                                                                                                                  #
+# We generally add sets of patterns in sections according to the kinds of unwanted cruft that are created by different language    #
+# tools, IDEs, editors, generators, and operating systems. The templates above are a good starting point for each section.         #
+####################################################################################################################################
+
+
+####################################################################################################################################
+###                                                             Yarn                                                             ###
+####################################################################################################################################
+
+# Yarn package manager for Node.js. Yarn provides fast, reliable, and secure dependency management and project tool scripting. We
+# use it in every project (regardless of other ecosystems also in use) to provide a consistent developer interface for the project.
+
+# Plug'n'Play (PnP) is a feature of Yarn that eliminates the need for a node_modules folder. It uses only one `.pnp.cjs` file.
+.pnp.*
+
+# Other configuration goes into the `.yarn/` directory. Some but not all of the stuff in `.yarn/` should be ignored.
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.yarn/*
+!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Misc cruft that Yarn might create in the project root.
+.yarn-integrity
+yarn-debug.log*
+yarn-error.log*
+
+# Lockfiles and config should always be committed.
+!yarn.lock
+!.yarnrc
+!.yarnrc.yml
+
+
+####################################################################################################################################
+###                                                           Secrets                                                            ###
+####################################################################################################################################
+
+# Various secrets and sensitive information that should not be committed to a repository.
+
+# DotEnv environment variable files.
+# https://www.dotenv.org/
+.env
+.env.*
+!.env.example
+
+# GPG private keys.
+# https://www.gnupg.org/
+# https://github.com/github/gitignore/blob/main/Global/GPG.gitignore
+secring.*
+
+# PuTTY private keys.
+# https://www.chiark.greenend.org.uk/~sgtatham/putty/
+# https://github.com/github/gitignore/blob/main/Global/PuTTY.gitignore
+*.ppk
+
+# SSH/certificate private keys
+# https://www.openssh.org/
+.ssh/
+id_rsa
+*.pem
+*.key
+
+
+####################################################################################################################################
+###                                                   AI Agents and Assistants                                                   ###
+####################################################################################################################################
+
+# Common agent instruction and project configuration files that should not be committed or shared with the project team.
+
+# Aider
+# https://aider.chat/
+.aider.input.history
+.aider.chat.history.md
+.aider.llm.history
+.aider.tags.cache.v*
+.aiderignore
+
+# Claude Code
+# https://code.claude.com/
+.claudeignore
+.claude/*.local.json
+./**/CLAUDE.local.md
+.claude/**/*.log
+
+# Cursor
+# https://cursor.com/
+.cursorignore
+.cursorindexingignore
+
+# Gemini CLI
+# https://gemini.google.com/
+gemini-debug.log
+.gemini-clipboard/
+
+# OhMyOpenAgent
+# https://omo.dev/
+.sisyphus/*
+!.sisyphus/rules/
+
+
+####################################################################################################################################
+###                                                             IDEs                                                             ###
+####################################################################################################################################
+
+# In general, we are initially ignoring IDE project files, user settings, and workspace state. If a project intends to use any given
+# IDE, then we'll add more discriminating rules when we set up each IDE.
+
+# Anjuta IDE
+# https://anjuta.org/
+# https://github.com/github/gitignore/blob/main/Global/Anjuta.gitignore
+.anjuta/
+.anjuta_sym_db.db
+
+# AWS Cloud9 web-based IDE
+# http://c9.io
+# https://github.com/github/gitignore/blob/main/Global/Cloud9.gitignore
+.c9revisions
+.c9
+
+# CodeKit macOS web developmentIDE
+# https://codekitapp.com/
+# https://github.com/github/gitignore/blob/main/Global/CodeKit.gitignore
+config.codekit
+config.codekit3
+/min
+
+# Dreamweaver web design and development app
+# https://www.adobe.com/products/dreamweaver.html
+# https://github.com/github/gitignore/blob/main/Global/Dreamweaver.gitignore
+_notes
+_compareTemp
+configs/
+dwsync.xml
+dw_php_codehinting.config
+*.mno
+
+# Eclipse IDE
+# https://eclipseide.org/
+# https://github.com/github/gitignore/blob/main/Global/Eclipse.gitignore
+*~.nib
+*.cproject
+*.pydevproject
+.externalToolBuilders/
+.metadata
+.recommenders/
+.settings/
+
+# Espresso web design and development app for macOS
+# https://espressoapp.com/
+# https://github.com/github/gitignore/blob/main/Global/Espresso.gitignore
+*.esproj
+
+# JDeveloper Java IDE
+# https://www.oracle.com/application-development/technologies/jdeveloper.html
+# https://github.com/github/gitignore/blob/main/Global/JDeveloper.gitignore
+# default application storage directory used by the IDE Performance Cache feature
+.data/
+.jenv-version
+classes/
+deploy/
+javadoc/
+temp/
+cwallet.sso.lck
+
+# JetBrains IDEs: CLion, DataGrip, GoLand, IntelliJ, PhpStorm, PyCharm, Rider, RubyMine, and WebStorm.
+# https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+# https://github.com/github/gitignore/blob/main/Global/JetBrains.gitignore
+.idea/
+
+# KDevelop cross-platform IDE for C, C++, Python, QML/JavaScript and PHP
+# https://kdevelop.org/
+# https://github.com/github/gitignore/blob/main/Global/KDevelop4.gitignore
+*.kdev4
+.kdev4/
+
+# Lazarus IDE for Delphi Object Pascal and Free Pascal
+# https://www.lazarus-ide.org/
+# https://github.com/github/gitignore/blob/main/Global/Lazarus.gitignore
+*.compiled
+*.dbg
+*.lps
+*.lrs
+*.lrt
+*.ppu
+*.rst
+*.rsj
+
+# Metals/ScalaMeta IDE for Scala
+# https://scalameta.org/metals/
+# https://github.com/github/gitignore/blob/main/Global/Metals.gitignore
+.ammonite/
+.bloop/
+.metals/
+metals.sbt
+
+# MonoDevelop cross-platform IDE for C#, F#, and other .NET languages
+# https://www.monodevelop.com/
+# https://github.com/github/gitignore/blob/main/Global/MonoDevelop.gitignore
+*.pidb
+*.resources
+*.userprefs
+*.usertasks
+test-results/
+
+# NetBeans cross-platform Java, JavaScript, PHP, HTML5, and CSS IDE
+# https://netbeans.apache.org/
+# https://github.com/github/gitignore/blob/main/Global/NetBeans.gitignore
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+.nb-gradle/
+nbbuild/
+nbdist/
+
+# RedCar JVM/Ruby IDE
+# https://github.com/danlucraft/redcar
+# https://github.com/github/gitignore/blob/main/Global/Redcar.gitignore
+.redcar
+
+# Visual Studio IDE for Windows and macOS.
+# https://visualstudio.microsoft.com/
+# https://github.com/github/gitignore/blob/main/Global/VisualStudio.gitignore
+.vs/
+
+# Visual Studio Code IDE for Windows, macOS, and Linux.
+# https://code.visualstudio.com/
+# https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
+.vscode/
+
+# Xcode IDE for Apple platforms
+# https://developer.apple.com/xcode/
+# https://github.com/github/gitignore/blob/main/Global/Xcode.gitignore
+xcuserdata/
+
+
+####################################################################################################################################
+###                                                         Text Editors                                                         ###
+####################################################################################################################################
+
+# EMacs
+# https://www.gnu.org/savannah-checkouts/gnu/emacs/emacs.html
+# https://github.com/github/gitignore/blob/main/Global/Emacs.gitignore
+
+\#*\#
+.\#*
+.cask/
+.dir-locals.el
+.org-id-locations
+.projectile
+*_archive
+*_flymake.*
+*.~undo-tree~
+*.elc
+*.rel
+/.emacs.desktop
+/.emacs.desktop.lock
+/auto/
+/elpa/
+/eshell/history
+/eshell/lastdir
+/network-security.data
+/server/
+auto-save-list
+dist/
+flycheck_*.el
+tramp
+
+# Kate
+# https://kate-editor.org/
+# https://github.com/github/gitignore/blob/main/Global/Kate.gitignore
+.*.kate-swp
+.swp.*
+
+# Notepad++
+# https://notepad-plus-plus.org/
+# https://github.com/github/gitignore/blob/main/Global/NotepadPP.gitignore
+*.bak
+
+# SlickEdit
+# https://www.slickedit.com/
+# https://github.com/github/gitignore/blob/main/Global/SlickEdit.gitignore
+*.vpj
+*.vpw
+*.vpwhistu
+*.vpwhist
+*.vtg
+
+# Sublime
+# https://www.sublimetext.com/
+# https://github.com/github/gitignore/blob/main/Global/SublimeText.gitignore
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+GitHub.sublime-settings
+Package Control.last-run
+Package Control.ca-list
+Package Control.ca-bundle
+Package Control.system-ca-bundle
+Package Control.cache/
+Package Control.ca-certs/
+Package Control.merged-ca-bundle
+Package Control.user-ca-bundle
+bh_unicode_properties.cache
+oscrypto-ca-bundle.crt
+sftp-config.json
+sftp-config-alt*.json
+!*.sublime-project
+
+# TextMate
+# https://macromates.com/
+# https://github.com/github/gitignore/blob/main/Global/TextMate.gitignore
+*.tmproj
+*.tmproject
+tmtags
+
+# Vim
+# https://www.vim.org/
+# https://github.com/github/gitignore/blob/main/Global/Vim.gitignore
+[._]*.s[a-v][a-z]
+!*.svg
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+[._]*.un~
+.netrwhist
+Session.vim
+Sessionx.vim
+
+# Zed
+# https://zed.dev/docs/configuring-zed#settings-files
+# https://github.com/github/gitignore/blob/main/Global/Zed.gitignore
+.zed/*
+!.zed/debug.json
+!.zed/settings.json
+!.zed/tasks.json
+
+# Ignore tags created by ctags, etags, gtags and cscope. These are source code indexing tools used by text editors like Emacs or Vim
+# to map the symbols in a codebase.
+[Gg][Tt][Aa][Gg][Ss].files
+[Gg][Tt][Aa][Gg][Ss]
+[Gg][Rr][Tt][Aa][Gg][Ss]
+[Gg][Pp][Aa][Tt][Hh]
+[Gg][Ss][Yy][Mm][Ss]
+[Tt][Aa][Gg][Ss]
+.[Tt][Aa][Gg][Ss]
+![Tt][Aa][Gg][Ss]/
+cscope.files
+cscope.out
+cscope.in.out
+cscope.po.out
+
+
+####################################################################################################################################
+###                                                           Archives                                                           ###
+####################################################################################################################################
+
+# https://github.com/github/gitignore/blob/main/Global/Archives.gitignore
+
+# It's better to unpack these files and commit the raw source. Git does a fine job of compression.
+*.7z
+*.jar
+*.rar
+*.zip
+*.gz
+*.gzip
+*.tgz
+*.bzip
+*.bzip2
+*.bz2
+*.xz
+*.lzma
+*.xar
+*.zst
+*.tzst
+
+# Packing-only formats
+*.iso
+*.tar
+
+# Package management formats
+*.dmg
+*.xpi
+*.gem
+*.egg
+*.deb
+*.rpm
+*.txz
+
+
+####################################################################################################################################
+###                                               Compiler-generated Binary Files                                                ###
+####################################################################################################################################
+
+*.a
+*.app
+*.dcu
+*.dcp
+*.dll
+*.dylib
+*.exe
+*.o
+*.obj
+*.or
+*.pkg
+*.res
+*.so
+
+
+####################################################################################################################################
+###                                                    Version Control Files                                                     ###
+####################################################################################################################################
+
+# Version control artifacts that are not from Git.
+
+# Bazaar (bzr)/Breezy version control system
+# https://github.com/breezy-team/breezy/
+# https://github.com/github/gitignore/blob/main/Global/Bazaar.gitignore
+.bzr/
+**/.bzrignore
+
+# CVS version control system
+# https://www.nongnu.org/cvs/
+# https://github.com/github/gitignore/blob/main/Global/CVS.gitignore
+**/[Cc][Vv][Ss]/*
+**/.cvsignore
+
+# GNU DiffUtils tools
+# https://www.gnu.org/software/diffutils/
+# https://github.com/github/gitignore/blob/main/Global/Diff.gitignore
+*.diff
+
+# Mercurial (hg) version control system
+# https://www.mercurial-scm.org/
+# https://github.com/github/gitignore/blob/main/Global/Mercurial.gitignore
+.hg/
+.hgignore
+.hgsigs
+.hgsub
+.hgsubstate
+.hgtags
+
+# GNU Patch utilities
+# https://github.com/gitGNU/gnu_patch
+# https://github.com/github/gitignore/blob/main/Global/Patch.gitignore
+*.patch
+*.rej
+
+# Subversion (svn) version control system
+# https://subversion.apache.org/
+# https://github.com/github/gitignore/blob/main/Global/SVN.gitignore
+.svn/
+
+# TortoiseGit Windows shell interface for Git
+# https://tortoisegit.org/
+# https://github.com/github/gitignore/blob/main/Global/TortoiseGit.gitignore
+/.tgitconfig
+
+# Vagrant virtual machine management tool
+# https://www.vagrantup.com/
+# https://github.com/github/gitignore/blob/main/Global/Vagrant.gitignore
+.vagrant/
+
+
+####################################################################################################################################
+###                                             Generic Temporary and Backup Files                                               ###
+####################################################################################################################################
+
+# https://github.com/github/gitignore/blob/main/Global/Backup.gitignore
+
+# Generic temporary files
+*.tmp
+*.temp
+*.temporary
+
+# Generic backup files
+*.back
+*.backup
+
+# Generic original files
+*.ori
+*.orig
+*.original
+
+# Norton Ghost backup files
+*.gho
+
+
+####################################################################################################################################
+###                                                            macOS                                                             ###
+####################################################################################################################################
+
+# For macOS workstations to ignore temporary files, caches, system files, and cruft generated by common system apps.
+# https://github.com/github/gitignore/blob/main/Global/macOS.gitignore
+
+# Common macOS cruft
+~$*
+*~
+._*
+__MACOSX/
+.[Dd][Ss]_[Ss]tore
+.[Aa]pple[Dd]ouble
+.[Ll][Ss][Oo]verride
+[Ii]con*
+
+# Files that might appear in the root of a volume
+.[Dd]ocument[Rr]evisions*
+.fseventsd
+.[Ss]potlight*
+.[Tt]emporary[Ii]tems
+.[Tt]rashes
+.[Vv]olume[Ii]con.icns
+.com.apple.timemachine.donotpresent
+.vol
+.file
+.disk_label*
+lost+found
+
+# Directories potentially created on remote AFP share
+.[Aa]pple[Dd][Bb]
+.[Aa]pple[Dd]esktop
+[Nn]etwork [Tt]rash [Ff]older
+[Tt]emporary [Ii]tems
+.apdisk
+
+# Quota system
+.quota.*
+.quota.ops.*
+
+# TimeMachine
+[Bb]ackups.backupdb
+.[Mm]obile[Bb]ackups
+.[Mm]obile[Bb]ackups.trash
+[Mm]obile[Bb]ackups.trash
+tmbootpicker.efi
+
+
+####################################################################################################################################
+###                                                            Linux                                                             ###
+####################################################################################################################################
+
+# For Linux workstations to ignore temporary files, caches, system files, and cruft generated by common system apps.
+# https://github.com/github/gitignore/blob/main/Global/Linux.gitignore
+
+# Temporary files which can be created if a process still has a handle open of a deleted file
+.fuse_hidden*
+
+# Trash folder which might appear on any partition or disk
+.[Tt]rash-*
+
+# .nfs files are created when an open file is removed but is still
+# being accessed
+.nfs*
+
+# Log files created by default by the nohup command
+nohup.*
+
+
+####################################################################################################################################
+###                                                           Windows                                                            ###
+####################################################################################################################################
+
+# For Windows workstations to ignore temporary files, caches, system files, and cruft generated by common system apps.
+# https://github.com/github/gitignore/blob/main/Global/Windows.gitignore
+
+# Thumbnail cache files
+[Tt]humbs.db
+[Tt]humbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Folder config file
+[Dd]esktop.ini
+
+# Shortcuts
+*.lnk
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Dump files
+*.stackdump
+
+# Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
