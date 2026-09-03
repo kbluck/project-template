@@ -1,0 +1,175 @@
+####################################################################################################################################
+# Defines attributes for pathnames in a Git repository. Each line in the file consists of a pattern followed by a list of defined  #
+# attributes separated by whitespace. These attributes can control various aspects of how Git handles files, such as end-of-line   #
+# normalization, diff generation, and merge behavior. Notably, GitHub Linguist uses this file to determine the language of files   #
+# found within the repository, from which it attempts to generate syntax highlighting, language statistics, and merge behavior.    #
+# Note that all file names and extensions are written in a case-insensitive manner.                                                #
+#                                                                                                                                  #
+# Full documentation about gitattributes: https://git-scm.com/docs/gitattributes                                                   #
+#                                                                                                                                  #
+# Github Linguist includes its own extension grammar for .gitattributes files to render content on GitHub. Attributes include:     #
+#   `linguist-detectable`     Included in stats, even if language's type is data or prose                                          #
+#   `linguist-documentation`  Excluded from stats                                                                                  #
+#   `linguist-generated`      Excluded from stats, hidden in diffs                                                                 #
+#   `linguist-language=name`  Highlighted and classified as name                                                                   #
+#   `linguist-vendored`       Excluded from stats                                                                                  #
+#                                                                                                                                  #
+# The Github Linguist project: https://github.com/github-linguist                                                                  #
+#                                                                                                                                  #
+# There is a Github repository with a collection of gitattributes templates that provide a starting point to assemble a full       #
+# .gitattributes: https://github.com/gitattributes/gitattributes                                                                   #
+#                                                                                                                                  #
+# You can check the attributes of files in the repository using the git-check-attr command: `git check-attr --all <pathname>...`   #
+# Documentation about git-check-attr: https://git-scm.com/docs/git-check-attr                                                      #
+#                                                                                                                                  #
+# Reminder of line ending conventions:                                                                                             #
+# Linux and modern MacOS:  LF   "\n"   [ASCII code 10]                                                                             #
+# Windows:                 CRLF "\r\n" [ASCII codes 13 + 10]                                                                       #
+# Classic MacOS: (Rare)    CR   "\r"   [ASCII code 13]                                                                             #
+####################################################################################################################################
+
+# ident: Replaces $Id$ strings with a 40-character hex object name when checked out, and cleans it back to $Id$ upon commit.
+# merge: Defines the merge strategy or custom merge driver used when handling merge conflicts on a file (e.g., merge=union or a
+# custom named driver). Setting -merge prevents merging.
+# conflict-marker-size: Adjusts the size of conflict markers (<<<<<<< / >>>>>>>) for specific files by setting an integer value.
+# filter: Sets up external cleanup and smudging filters (such as filter=lfs for Git LFS) to process file contents during check-in
+# and check-out.
+# export-ignore: Excludes matching files and directories when creating archive tarballs or zip files via git archive.
+# export-subst: Expands placeholder keywords (like $Format:...$) inside the file during git archive exports.
+# binary: A built-in macro attribute shorthand equivalent to -text -diff -merge.
+# Git LFS Specific Attributes
+# lockable: Used by Git LFS to mark files as read-only in the working directory until explicitly locked via git lfs lock.
+
+# Set default behavior.
+* eol=lf
+* text=auto delta diff merge conflict-marker-size=7
+* encoding=utf8 working-tree-encoding=utf8
+* whitespace=-blank-at-eof,blank-at-eol,space-before-tab,tab-in-indent,trailing-space
+* linguist-detectable -linguist-documentation -linguist-generated -linguist-language -linguist-vendored
+* -export-ignore -export-subst
+
+# POSIX shell scripts
+*.[Bb][Aa][Ss][Hh] text diff=bash linguist-language=bash
+*.[Ff][Ii][Ss][Hh] text diff=bash linguist-language=fish
+*.[Kk][Ss][Hh]     text diff=bash linguist-language=shell-script
+*.[Ss][Hh]         text diff=bash linguist-language=sh
+*.[Zz][Ss][Hh]     text diff=bash linguist-language=zsh
+
+# Windows batch/command scripts. Always use CRLF line endings. Some Windows editors are very stupid about LF line endings.
+*.[Bb][Aa][Tt] text eol=crlf linguist-language=bat
+*.[Cc][Mm][Dd] text eol=crlf linguist-language=batchfile
+
+# Windows Powershell scripts. Always use CRLF line endings. PowerShell understands LF, but some Windows editors don't.
+*.[Pp][Ss]1             text eol=crlf linguist-language=powershell
+*.[Pp][Ss][Dd]1         text eol=crlf linguist-language=powershell
+*.[Pp][Ss][Mm]1         text eol=crlf linguist-language=powershell
+*.[Cc][Dd][Xx][Mm][Ll]  text eol=crlf linguist-language=xml diff=html
+*.[Pp][Ss]1[Xx][Mm][Ll] text eol=crlf linguist-language=xml diff=html
+*.[Pp][Ss][Rr][Cc]      text eol=crlf linguist-vendored -linguist-detectable
+*.[Pp][Ss][Ss][Cc]      text eol=crlf linguist-vendored -linguist-detectable
+
+# Add customization to Markdown.
+*.[Mm][Dd] text diff=markdown linguist-language=markdown
+
+# Add customization to various configuration file types.
+.[Gg][Ii][Tt][Aa][Tt][Tt][Rr][Ii][Bb][Uu][Tt][Ee][Ss] text export-ignore linguist-language=gitattributes
+.[Gg][Ii][Tt][Ii][Gg][Nn][Oo][Rr][Ee]                 text export-ignore linguist-language=gitignore
+.[Ee][Dd][Ii][Tt][Oo][Rr][Cc][Oo][Nn][Ff][Ii][Gg]     text export-ignore linguist-language=editorconfig
+
+# Add customization to various serialization file types.
+*.[Tt][Oo][Mm][Ll] text linguist-language=toml
+*.[Xx][Mm][Ll]     text linguist-language=xml diff=html
+*.[Xx][Mm][Ll]     text linguist-language=xml diff=html
+*.[Yy][Aa][Mm][Ll] text linguist-language=yaml
+*.[Yy][Mm][Ll]     text linguist-language=yaml
+
+# Treat standard .json files as JSON with Comments (jsonc) without flagging comments as syntax errors.
+# https://jsonc.org/
+*.[Jj][Ss][Oo][Nn]     text linguist-language=jsonc
+*.[Jj][Ss][Oo][Nn][Cc] text linguist-language=jsonc
+
+# Mark IDE cruft as vendored.
+.[Ii][Dd][Ee][Aa]/**/*         export-ignore linguist-vendored
+.[Vv][Ss][Cc][Oo][Dd][Ee]/**/* export-ignore linguist-vendored
+.[Vv][Ss]/**/*                 export-ignore linguist-vendored
+
+# Mark Yarn cruft as vendored.
+.[Yy][Aa][Rr][Nn]/**/* export-ignore linguist-vendored
+[Yy][Aa][Rr][Nn]-*     export-ignore linguist-vendored
+
+# Mark Executables as binary/LFS
+*.[Aa]                 binary filter=lfs diff=lfs merge=lfs
+*.[Aa][Pp][Pp]         binary filter=lfs diff=lfs merge=lfs
+*.[Dd][Cc][Pp]         binary filter=lfs diff=lfs merge=lfs
+*.[Dd][Cc][Uu]         binary filter=lfs diff=lfs merge=lfs
+*.[Dd][Ll][Ll]         binary filter=lfs diff=lfs merge=lfs
+*.[Dd][Yy][Ll][Ii][Bb] binary filter=lfs diff=lfs merge=lfs
+*.[Ee][Xx][Ee]         binary filter=lfs diff=lfs merge=lfs
+*.[Oo]                 binary filter=lfs diff=lfs merge=lfs
+*.[Oo][Bb][Jj]         binary filter=lfs diff=lfs merge=lfs
+*.[Oo][Rr]             binary filter=lfs diff=lfs merge=lfs
+*.[Pp][Kk][Gg]         binary filter=lfs diff=lfs merge=lfs
+*.[Rr][Ee][Ss]         binary filter=lfs diff=lfs merge=lfs
+*.[Ss][Oo]             binary filter=lfs diff=lfs merge=lfs
+
+# Mark Archives as binary/LFS
+*.7[Zz]                binary filter=lfs diff=lfs merge=lfs
+*.[Bb][Zz][Ii][Pp]     binary filter=lfs diff=lfs merge=lfs
+*.[Bb][Zz][Ii][Pp]2    binary filter=lfs diff=lfs merge=lfs
+*.[Bb][Zz]2            binary filter=lfs diff=lfs merge=lfs
+*.[Dd][Ee][Bb]         binary filter=lfs diff=lfs merge=lfs
+*.[Dd][Mm][Gg]         binary filter=lfs diff=lfs merge=lfs
+*.[Ee][Gg][Gg]         binary filter=lfs diff=lfs merge=lfs
+*.[Gg][Ee][Mm]         binary filter=lfs diff=lfs merge=lfs
+*.[Gg][Zz]             binary filter=lfs diff=lfs merge=lfs
+*.[Gg][Zz][Ii][Pp]     binary filter=lfs diff=lfs merge=lfs
+*.[Ii][Ss][Oo]         binary filter=lfs diff=lfs merge=lfs
+*.[Jj][Aa][Rr]         binary filter=lfs diff=lfs merge=lfs
+*.[Ll][Zz][Mm][Aa]     binary filter=lfs diff=lfs merge=lfs
+*.[Rr][Aa][Rr]         binary filter=lfs diff=lfs merge=lfs
+*.[Rr][Pp][Mm]         binary filter=lfs diff=lfs merge=lfs
+*.[Tt][Aa][Rr]         binary filter=lfs diff=lfs merge=lfs
+*.[Tt][Gg][Zz]         binary filter=lfs diff=lfs merge=lfs
+*.[Tt][Xx][Zz]         binary filter=lfs diff=lfs merge=lfs
+*.[Tt][Zz][Ss][Tt]     binary filter=lfs diff=lfs merge=lfs
+*.[Xx][Aa][Rr]         binary filter=lfs diff=lfs merge=lfs
+*.[Xx][Pp][Ii]         binary filter=lfs diff=lfs merge=lfs
+*.[Xx][Zz]             binary filter=lfs diff=lfs merge=lfs
+*.[Zz][Ii][Pp]         binary filter=lfs diff=lfs merge=lfs
+*.[Zz][Ss][Tt]         binary filter=lfs diff=lfs merge=lfs
+
+# Mark Documents as binary/LFS (even theoretically text-based types)
+*.[Pp][Dd][Ff]         binary filter=lfs diff=lfs merge=lfs
+
+# Mark Images as binary/LFS (even theoretically text-based types)
+*.3[Dd][Mm]            binary filter=lfs diff=lfs merge=lfs
+*.[Aa][Pp][Nn][Gg]     binary filter=lfs diff=lfs merge=lfs
+*.[Bb][Mm][Pp]         binary filter=lfs diff=lfs merge=lfs
+*.[Dd][Ii][Bb]         binary filter=lfs diff=lfs merge=lfs
+*.[Gg][Ii][Ff]         binary filter=lfs diff=lfs merge=lfs
+*.[Hh][Dd][Pp]         binary filter=lfs diff=lfs merge=lfs
+*.[Ii][Cc][Oo]         binary filter=lfs diff=lfs merge=lfs
+*.[Jj]2[Kk]            binary filter=lfs diff=lfs merge=lfs
+*.[Jj][Ff][Ii]         binary filter=lfs diff=lfs merge=lfs
+*.[Jj][Ff][Ii][Ff]     binary filter=lfs diff=lfs merge=lfs
+*.[Jj][Ii][Ff]         binary filter=lfs diff=lfs merge=lfs
+*.[Jj][Pp]2            binary filter=lfs diff=lfs merge=lfs
+*.[Jj][Pp][Ee]         binary filter=lfs diff=lfs merge=lfs
+*.[Jj][Pp][Ee][Gg]     binary filter=lfs diff=lfs merge=lfs
+*.[Jj][Pp][Ff]         binary filter=lfs diff=lfs merge=lfs
+*.[Jj][Pp][Gg]         binary filter=lfs diff=lfs merge=lfs
+*.[Jj][Pp][Mm]         binary filter=lfs diff=lfs merge=lfs
+*.[Jj][Pp][Xx]         binary filter=lfs diff=lfs merge=lfs
+*.[Jj][Xx][Rr]         binary filter=lfs diff=lfs merge=lfs
+*.[Mm][Aa][Xx]         binary filter=lfs diff=lfs merge=lfs
+*.[Mm][Jj]2            binary filter=lfs diff=lfs merge=lfs
+*.[Mm][Nn][Gg]         binary filter=lfs diff=lfs merge=lfs
+*.[Pp][Nn][Gg]         binary filter=lfs diff=lfs merge=lfs
+*.[Rr][Aa][Ww]         binary filter=lfs diff=lfs merge=lfs
+*.[Ss][Vv][Gg]         binary filter=lfs diff=lfs merge=lfs
+*.[Ss][Vv][Gg][Zz]     binary filter=lfs diff=lfs merge=lfs
+*.[Tt][Ii][Ff]         binary filter=lfs diff=lfs merge=lfs
+*.[Tt][Ii][Ff][Ff]     binary filter=lfs diff=lfs merge=lfs
+*.[Ww][Dd][Pp]         binary filter=lfs diff=lfs merge=lfs
+*.[Ww][Ee][Bb][Pp]     binary filter=lfs diff=lfs merge=lfs
+*.[Xx][Bb][Mm]         binary filter=lfs diff=lfs merge=lfs
