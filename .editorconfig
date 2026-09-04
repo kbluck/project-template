@@ -1,0 +1,101 @@
+####################################################################################################################################
+# EditorConfig helps maintain consistent coding styles for developers working on the same project across various editors and IDEs. #
+# EditorConfig includes a file format for defining coding styles and a collection of text editor plugins that enable editors to    #
+# read the file format and adhere to defined styles. EditorConfig files are easily readable and they work nicely with version      #
+# control systems.                                                                                                                 #
+#                                                                                                                                  #
+# Full documentation about EditorConfig: https://editorconfig.org/                                                                 #
+####################################################################################################################################
+
+# This file is the top-most EditorConfig file. Do not search above this file.
+root = true
+
+####################################################################################################################################
+#                                                            All Files                                                             #
+####################################################################################################################################
+# noinspection EditorConfigKeyCorrectness
+[*]
+
+charset                  = utf-8
+end_of_line              = lf
+guidelines               = 66,72,80,132
+insert_final_newline     = true
+max_line_length          = 132
+spelling_language        = en-US
+trim_trailing_whitespace = true
+
+continuation_indent_size = 4
+indent_size              = 2
+indent_style             = space
+tab_width                = 2
+
+####################################################################################################################################
+#                                                        EditorConfig files                                                        #
+####################################################################################################################################
+[.editorconfig]
+
+ij_editorconfig_align_group_field_declarations     = true
+ij_editorconfig_space_after_colon                  = false
+ij_editorconfig_space_after_comma                  = true
+ij_editorconfig_space_before_colon                 = false
+ij_editorconfig_space_before_comma                 = false
+ij_editorconfig_spaces_around_assignment_operators = true
+
+####################################################################################################################################
+#                                         GitIgnore, GitAttributes, other Properties files                                         #
+####################################################################################################################################
+[{*.gitattributes,*.gitignore,*.properties}]
+
+ij_properties_align_group_field_declarations    = true
+ij_properties_keep_blank_lines                  = true
+ij_properties_key_value_delimiter               = equals
+ij_properties_spaces_around_key_value_delimiter = true
+
+####################################################################################################################################
+#                                                          Markdown Files                                                          #
+####################################################################################################################################
+[*.md]
+
+#Markdown explicitly uses two trailing spaces to define a line break
+trim_trailing_whitespace                            = false
+
+ij_markdown_force_one_space_after_blockquote_symbol = true
+ij_markdown_force_one_space_after_header_symbol     = true
+ij_markdown_force_one_space_after_list_bullet       = true
+ij_markdown_force_one_space_between_words           = true
+ij_markdown_format_tables                           = false
+ij_markdown_insert_quote_arrows_on_wrap             = true
+ij_markdown_keep_indents_on_empty_lines             = false
+ij_markdown_keep_line_breaks_inside_text_blocks     = true
+ij_markdown_max_lines_around_block_elements         = 1
+ij_markdown_max_lines_around_header                 = 1
+ij_markdown_max_lines_between_paragraphs            = 1
+ij_markdown_min_lines_around_block_elements         = 1
+ij_markdown_min_lines_around_header                 = 1
+ij_markdown_min_lines_between_paragraphs            = 1
+ij_markdown_wrap_text_if_long                       = true
+ij_markdown_wrap_text_inside_blockquotes            = true
+
+
+####################################################################################################################################
+#                                            XML-based MSBuild files, other XML files.                                             #
+####################################################################################################################################
+[{*.xml,*.xsl,*.xslt}]
+
+ij_xml_align_attributes                 = true
+ij_xml_align_text                       = false
+ij_xml_attribute_wrap                   = normal
+ij_xml_block_comment_add_space          = true
+ij_xml_block_comment_at_first_column    = true
+ij_xml_keep_blank_lines                 = 1
+ij_xml_keep_indents_on_empty_lines      = false
+ij_xml_keep_line_breaks                 = true
+ij_xml_keep_line_breaks_in_text         = true
+ij_xml_keep_whitespaces                 = false
+ij_xml_keep_whitespaces_around_cdata    = preserve
+ij_xml_keep_whitespaces_inside_cdata    = false
+ij_xml_line_comment_at_first_column     = true
+ij_xml_space_after_tag_name             = false
+ij_xml_space_around_equals_in_attribute = false
+ij_xml_space_inside_empty_tag           = true
+ij_xml_text_wrap                        = normal
