@@ -1,59 +1,27 @@
 // What is installed in the image, and available tags: https://github.com/bare-devcontainer/images
 // Usage, options, security defaults, and tips: https://github.com/bare-devcontainer/templates/tree/main/src/bun
 {
+  // Configure container name and image source.
+  "name":  "Debian Slim",
+  "image": "dc-debian-slim",
 
-  "name":  "Bun",
-  "image": "bun",
-  "init":  true,
+  // Mount the local project to the remote code root under remoteUser's `$HOME` in a folder matching the local folder name.
+  "workspaceFolder": "/home/coder/code/${localWorkspaceFolderBasename}",
+  "workspaceMount":  "type=bind,source=${localWorkspaceFolder},target=${containerWorkspaceFolder}",
 
-  // Customize IDEs and editors.
-  "customizations": {
-
-    // Customizations for VS Code.
-    "vscode": {
-
-      // Mandatory VS Code extensions.
-      "extensions": [
-        "oven.bun-vscode" // Official Bun extension.
-      ],
-
-      // VS Code setting overrides.
-      "settings": {
-        "bun.runtime": "/usr/local/bin/bun"
-      }
-    }
-  },
-
-  "mounts": [
-
-    // Persist Bun's global install cache across rebuilds to avoid re-downloading packages.
-    {
-      "source": "${devcontainerId}-bun-install-cache",
-      "target": "/home/dev/.bun/install/cache",
-      "type": "volume"
-    },
-
-    // Persist the shell history the image keeps in this directory.
-    {
-      "source": "${devcontainerId}-bash-history",
-      "target": "/home/dev/.local/state/bash",
-      "type": "volume"
-    }
-  ],
-
-  "remoteUser": "dev",
-
-  "runArgs": ["--cap-drop=ALL"],
-
-  // These allow VS Code to open $EDITOR/$VISUAL/$GIT_EDITOR (e.g. `git commit`) in a VS Code tab.
-  "remoteEnv": {
-    "VISUAL": "code --wait",
-    "EDITOR": "code --wait",
-    "GIT_EDITOR": "code --wait"
-  },
-
-  "securityOpt": [
-    "no-new-privileges" // Remove `no-new-privileges` from list if users need su/sudo.
+  // Array of Docker CLI arguments to pass when running the container.
+  "runArgs": [
+    "--cap-drop=ALL"  // Drop all superuser capbilities.
   ]
 
+  // Set of name-value pairs that set or override envvars for the remoteUser, but not the entire container.
+//  "remoteEnv": {
+//    "EDITOR":     "code --wait",  // VS Code handles calls to $EDITOR.
+//    "GIT_EDITOR": "code --wait",  // VS Code handles calls to $GIT_EDITOR.
+//    "VISUAL":     "code --wait"   // VS Code handles calls to $VISUAL.
+//  },
+
+  // Customize IDEs and editors with extensions and settings.
+//  "customizations": {
+//  }
 }
